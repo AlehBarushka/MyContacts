@@ -7,7 +7,6 @@ The task includes writing a full-fledged application in React Native. It can be 
 I chose the **phone contacts app**.
 
 ## Requirements:
-
 - React Native (Expo CLI/React Native CLI);
 - JavaScript/TypeScript;
 - for state management Redux/Redux ToolKit;
