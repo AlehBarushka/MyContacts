@@ -5,13 +5,14 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='padding'>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder='Email' />
+        <TextInput textContentType='email-address' style={styles.input} placeholder='Email' />
         <TextInput style={styles.input} placeholder='Password' secureTextEntry />
       </View>
       <View style={styles.buttonContainer}>
