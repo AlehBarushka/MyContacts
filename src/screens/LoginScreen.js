@@ -1,23 +1,23 @@
-import {
-  Text,
-  KeyboardAvoidingView,
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
+import { Text, KeyboardAvoidingView, StyleSheet, View, TouchableOpacity } from 'react-native';
+
+import { SIGNUP } from '../constants/routes';
+
+import LoginForm from '../components/LoginForm';
+import LogoTitle from '../components/LogoTitle';
 
 const LoginScreen = ({ navigation }) => {
+  const handleNavigate = () => {
+    navigation.navigate(SIGNUP);
+  };
+
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput textContentType='email-address' style={styles.input} placeholder='Email' />
-        <TextInput style={styles.input} placeholder='Password' secureTextEntry />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+    <KeyboardAvoidingView style={styles.container} behavior='height'>
+      <LogoTitle />
+      <LoginForm />
+      <View style={styles.authTextContainer}>
+        <Text style={styles.authText}>don't have an account? </Text>
+        <TouchableOpacity onPress={handleNavigate}>
+          <Text style={styles.authLink}>Registration</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -32,31 +32,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputContainer: {
-    width: '80%',
-  },
-  input: {
-    backgroundColor: 'white',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: '80%',
-    justifyContent: 'center',
+  authTextContainer: {
+    marginTop: 15,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
   },
-  button: {
-    backgroundColor: '#0782F9',
-    width: '100%',
-    padding: 15,
-    borderRadius: 10,
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: 'white',
-    justifyContent: 'center',
+  authText: { color: '#696969' },
+  authLink: {
+    fontWeight: '700',
+    color: '#0463bf',
   },
 });
