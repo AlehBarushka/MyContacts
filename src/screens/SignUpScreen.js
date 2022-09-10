@@ -1,23 +1,23 @@
-import {
-  Text,
-  KeyboardAvoidingView,
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, KeyboardAvoidingView, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-const SignUpScreen = () => {
+import { LOGIN } from '../constants/routes';
+
+import LogoTitle from '../components/LogoTitle';
+import SignUpForm from '../components/SignUpForm/SignUpForm';
+
+const SignUpScreen = ({ navigation }) => {
+  const handleNavigate = () => {
+    navigation.navigate(LOGIN);
+  };
+
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='padding'>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder='Username' />
-        <TextInput style={styles.input} placeholder='Email' />
-        <TextInput style={styles.input} placeholder='Password' secureTextEntry />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+    <KeyboardAvoidingView style={styles.container} behavior='height'>
+      <LogoTitle />
+      <SignUpForm />
+      <View style={styles.authTextContainer}>
+        <Text style={styles.authText}>have an account? </Text>
+        <TouchableOpacity onPress={handleNavigate}>
+          <Text style={styles.authLink}>Login</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -32,31 +32,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputContainer: {
-    width: '80%',
-  },
-  input: {
-    backgroundColor: 'white',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: '80%',
-    justifyContent: 'center',
+  authTextContainer: {
+    marginTop: 15,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
   },
-  button: {
-    backgroundColor: '#0782F9',
-    width: '100%',
-    padding: 15,
-    borderRadius: 10,
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: 'white',
-    justifyContent: 'center',
+  authText: { color: '#696969' },
+  authLink: {
+    fontWeight: '700',
+    color: '#0463bf',
   },
 });

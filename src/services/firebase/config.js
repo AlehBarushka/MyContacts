@@ -1,12 +1,20 @@
 import { initializeApp } from 'firebase/app';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import envConfig from '../../config/envConfig';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCLBQ2ZVA25yHeeMnIJmYhP3R1_4pWK5RA',
-  authDomain: 'my-contacts-3ce57.firebaseapp.com',
-  projectId: 'my-contacts-3ce57',
-  storageBucket: 'my-contacts-3ce57.appspot.com',
-  messagingSenderId: '137995558696',
-  appId: '1:137995558696:web:0047835edf8e3b0418ba1d',
+  apiKey: envConfig.FIREBASE_API_KEY,
+  authDomain: envConfig.FIREBASE_AUTH_DOMAIN,
+  projectId: envConfig.FIREBASE_PROJECT_ID,
+  storageBucket: envConfig.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: envConfig.FIREBASE_MESSAGING_SENDER_ID,
+  appId: envConfig.FIREBASE_APP_ID,
 };
 
-export const myApp = initializeApp(firebaseConfig);
+const myApp = initializeApp(firebaseConfig);
+
+export const auth = initializeAuth(myApp, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});

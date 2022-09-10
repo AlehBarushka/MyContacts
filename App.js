@@ -1,7 +1,7 @@
 import { AppRegistry } from 'react-native';
 
-import App from './src/App';
+import AppWrapper from './src/AppWrapper';
 
-AppRegistry.registerComponent('My Contacts', () => App);
+AppRegistry.registerComponent('My Contacts', () => AppWrapper);
 
-export default App;
+export default AppWrapper;
