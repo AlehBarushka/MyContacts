@@ -1,4 +1,12 @@
-import { Text, KeyboardAvoidingView, StyleSheet, View, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  KeyboardAvoidingView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SIGNUP } from '../constants/routes';
 
@@ -11,22 +19,27 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='height'>
-      <LogoTitle />
-      <LoginForm />
-      <View style={styles.authTextContainer}>
-        <Text style={styles.authText}>don't have an account? </Text>
-        <TouchableOpacity onPress={handleNavigate}>
-          <Text style={styles.authLink}>Registration</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' && 'padding'}>
+        <LogoTitle />
+        <LoginForm />
+        <View style={styles.authTextContainer}>
+          <Text style={styles.authText}>don't have an account? </Text>
+          <TouchableOpacity onPress={handleNavigate}>
+            <Text style={styles.authLink}>Registration</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

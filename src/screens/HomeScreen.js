@@ -1,5 +1,6 @@
 import React from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { firebaseAuth } from '../services/firebase/auth';
 
 const HomeScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -23,7 +24,7 @@ const HomeScreen = () => {
         contentContainerStyle={styles.scrollView}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View>
-          <Text style={styles.text}>{post.title}</Text>
+          <Text>{post.title}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -35,8 +36,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '80%',
-    alignSelf: 'center',
   },
   scrollView: {
     flex: 1,
