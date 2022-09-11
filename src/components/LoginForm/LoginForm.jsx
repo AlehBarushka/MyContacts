@@ -9,8 +9,8 @@ const LoginForm = () => {
   const isLoading = useSelector(state => state.app.isLoading);
 
   const [loginData, setLoginData] = useState({
-    email: 'test@test.com',
-    password: 'qwerty',
+    email: '',
+    password: '',
   });
 
   const handleChange = (name, value) => {
