@@ -1,4 +1,11 @@
-import { AUTH_FAILURE, AUTH_PENDING, AUTH_SUCCESS } from '../actions/auth';
+import {
+  AUTH_FAILURE,
+  AUTH_PENDING,
+  AUTH_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGOUT_PENDING,
+  LOGOUT_SUCCESS,
+} from '../actionConstants/auth';
 
 import { firebaseAuth } from '../../services/firebase/auth';
 import { auth } from '../../services/firebase/config';
@@ -23,6 +30,26 @@ export const authFailure = error => ({
   payload: error,
 });
 
+export const logoutPending = () => {
+  return {
+    type: LOGOUT_PENDING,
+  };
+};
+
+export const logoutSuccess = () => {
+  return {
+    type: LOGOUT_SUCCESS,
+  };
+};
+
+export const logoutFailure = error => {
+  return {
+    type: LOGOUT_FAILURE,
+    payload: error,
+  };
+};
+
+//-----------------THUNKS-------------------//
 export const loginThunk = (email, password) => {
   return async dispatch => {
     try {
@@ -61,12 +88,12 @@ export const signUpThunk = ({ email, password, userName }) => {
   };
 };
 
-export const onAuth = () => {
+export const onAuthStateChangedThunk = () => {
   return async dispatch => {
     dispatch(authPending());
     dispatch(loading());
 
-    const unsubscribe = auth.onAuthStateChanged(async user => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
       try {
         if (user) {
           const currentUser = {
@@ -87,6 +114,24 @@ export const onAuth = () => {
       }
     });
 
-    return unsubscribe;
+    //this allows us to unsubscribe from the listener immediately after the first rendering
+    unsubscribe();
+  };
+};
+
+export const logoutThunk = () => {
+  return async dispatch => {
+    try {
+      dispatch(logoutPending());
+      dispatch(loading());
+
+      await firebaseAuth.logOut();
+
+      dispatch(logoutSuccess());
+      dispatch(loadingSuccess());
+    } catch (error) {
+      dispatch(logoutFailure(error));
+      dispatch(loadingSuccess());
+    }
   };
 };

@@ -1,4 +1,4 @@
-import { LOADING_PENDING, LOADING_SUCCESS } from '../actions/application';
+import { LOADING_PENDING, LOADING_SUCCESS } from './../actionConstants/application';
 
 const initialState = {
   isLoading: false,

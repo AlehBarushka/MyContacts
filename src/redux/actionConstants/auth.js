@@ -1,0 +1,6 @@
+export const AUTH_PENDING = 'AUTH_PENDING';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const LOGOUT_PENDING = 'LOGOUT_PENDING';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
