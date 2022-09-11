@@ -55,6 +55,9 @@ export const firebaseAuth = {
     return user;
   },
 
+  /**
+   * @description The method logout of an existing user.
+   */
   async logOut() {
     await signOut(auth);
   },
