@@ -12,11 +12,20 @@ import { SIGNUP } from '../constants/routes';
 
 import LoginForm from '../components/LoginForm';
 import LogoTitle from '../components/LogoTitle';
+import { useEffect } from 'react';
 
 const LoginScreen = ({ navigation }) => {
   const handleNavigate = () => {
     navigation.navigate(SIGNUP);
   };
+
+  useEffect(() => {
+    console.log('effect');
+
+    return () => {
+      console.log('destroy');
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
