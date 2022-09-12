@@ -1,13 +1,12 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { firebaseAuth } from '../services/firebase/auth';
 
 const HomeScreen = () => {
-  const [refreshing, setRefreshing] = React.useState(false);
-  const [post, setPost] = React.useState('');
-  const [postNumber, setPostNumber] = React.useState(1);
+  const [refreshing, setRefreshing] = useState(false);
+  const [post, setPost] = useState('');
+  const [postNumber, setPostNumber] = useState(1);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetch(`https://jsonplaceholder.typicode.com/posts/${postNumber}`)
       .then(response => response.json())

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { EMAIL_ERROR, PASSWORD_ERROR } from '../../constants/errors';
+import { isValidEmail, isValidPassword } from '../../utils/formValidation';
+
 import { loginThunk } from '../../redux/actionCreators/auth';
 
 const LoginForm = () => {
@@ -9,6 +12,11 @@ const LoginForm = () => {
   const isLoading = useSelector(state => state.app.isLoading);
 
   const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [validationErrors, setValidationErrors] = useState({
     email: '',
     password: '',
   });
@@ -21,23 +29,45 @@ const LoginForm = () => {
   };
 
   const login = () => {
-    dispatch(loginThunk(loginData.email, loginData.password));
+    if (isValidEmail(loginData.email) && isValidPassword(loginData.password)) {
+      return dispatch(loginThunk(loginData.email, loginData.password));
+    }
+
+    if (!isValidEmail(loginData.email)) {
+      setValidationErrors(validationErrors => ({ ...validationErrors, email: EMAIL_ERROR }));
+    }
+
+    if (!isValidPassword(loginData.password)) {
+      setValidationErrors(validationErrors => ({
+        ...validationErrors,
+        password: PASSWORD_ERROR,
+      }));
+    }
   };
 
   return (
     <>
       <View style={styles.inputContainer}>
         <TextInput
-          onChangeText={text => handleChange('email', text)}
+          autoCorrect={false}
+          onChangeText={text => {
+            handleChange('email', text);
+            setValidationErrors(validationErrors => ({ ...validationErrors, email: '' }));
+          }}
           style={styles.input}
           placeholder='Email'
         />
+        {validationErrors.email && <Text style={styles.error}>{validationErrors.email}</Text>}
         <TextInput
-          onChangeText={text => handleChange('password', text)}
+          onChangeText={text => {
+            handleChange('password', text);
+            setValidationErrors(validationErrors => ({ ...validationErrors, password: '' }));
+          }}
           style={styles.input}
           placeholder='Password'
           secureTextEntry
         />
+        {validationErrors.password && <Text style={styles.error}>{validationErrors.password}</Text>}
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={login} style={styles.button} disabled={isLoading}>
@@ -59,7 +89,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
-    marginTop: 5,
+    marginTop: 10,
   },
   buttonContainer: {
     width: '80%',
@@ -77,5 +107,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     justifyContent: 'center',
+  },
+  error: {
+    marginTop: 5,
+    marginLeft: 15,
+    color: '#d1565c',
   },
 });

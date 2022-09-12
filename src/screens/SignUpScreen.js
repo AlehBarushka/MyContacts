@@ -24,7 +24,7 @@ const SignUpScreen = ({ navigation }) => {
         <LogoTitle />
         <SignUpForm />
         <View style={styles.authTextContainer}>
-          <Text style={styles.authText}>have an account? </Text>
+          <Text style={styles.authText}>already have account? </Text>
           <TouchableOpacity onPress={handleNavigate}>
             <Text style={styles.authLink}>Login</Text>
           </TouchableOpacity>
