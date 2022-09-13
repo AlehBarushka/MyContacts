@@ -12,8 +12,8 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import Loader from './components/Loader';
-import HeaderTitle from './components/HeaderTitle';
 import LogoutButton from './components/LogoutButton/LogoutButton';
+import LogoTitle from './components/LogoTitle';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +22,6 @@ const App = () => {
 
   const isAuth = useSelector(state => state.auth.isAuthenticated);
   const isLoading = useSelector(state => state.app.isLoading);
-  const userName = useSelector(state => state.auth.user.userName);
 
   useEffect(() => {
     dispatch(onAuthStateChangedThunk());
@@ -39,8 +38,10 @@ const App = () => {
           <Stack.Screen
             name={HOME}
             options={{
+              headerStyle: { backgroundColor: '#0782F9' },
+              headerTitle: '',
+              headerLeft: () => <LogoTitle />,
               headerRight: () => <LogoutButton />,
-              headerTitle: props => <HeaderTitle userName={userName} {...props} />,
             }}
             component={HomeScreen}
           />

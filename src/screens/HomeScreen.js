@@ -1,54 +1,81 @@
-import { useState, useCallback } from 'react';
-import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { RefreshControl, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import ContactCard from '../components/ContactCard';
+
+const contacts = [
+  { id: 1, firsName: 'Alex', lastName: 'Ivanov', phoneNumber: +52365456 },
+  { id: 2, firsName: 'Max', lastName: 'Zaitsev', phoneNumber: 54564564 },
+  { id: 3, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 4, firsName: 'Anton', lastName: 'Kutuzov', phoneNumber: 234524352 },
+  { id: 5, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 6, firsName: 'Misha', lastName: 'Lapenko', phoneNumber: 234524352 },
+  { id: 7, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 8, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 9, firsName: 'Ignat', lastName: 'Moroz', phoneNumber: 234524352 },
+  { id: 10, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 11, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 12, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 13, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 14, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+  { id: 15, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: 234524352 },
+];
 
 const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const [post, setPost] = useState('');
-  const [postNumber, setPostNumber] = useState(1);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = () => {
     setRefreshing(true);
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postNumber}`)
-      .then(response => response.json())
-      .then(json => {
-        setPostNumber(postNumber + 1);
-        setPost(json);
-        setRefreshing(false);
-      });
-  }, [postNumber]);
+    setTimeout(() => {
+      contacts.reverse();
+      setRefreshing(false);
+    }, 2000);
+  };
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollView}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-      <View>
-        <Text>{post.title}</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-        <Text>asdfasdfasdf</Text>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+        {contacts.map(contact => (
+          <ContactCard
+            key={contact.id}
+            firstName={contact.firsName}
+            lastName={contact.lastName}
+            phoneNumber={contact.phoneNumber}
+          />
+        ))}
+      </ScrollView>
+      <TouchableOpacity onPress={() => console.log('hello')} style={styles.button}>
+        <MaterialCommunityIcons name='account-plus' size={24} color='#ffff' />
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  scrollView: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
+    position: 'relative',
   },
-  text: {
-    textAlign: 'center',
+  scrollView: {
+    paddingHorizontal: 15,
+  },
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: 'orange',
   },
 });
