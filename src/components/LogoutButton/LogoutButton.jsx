@@ -1,7 +1,8 @@
-import { TouchableOpacity, Text, Alert } from 'react-native';
+import { TouchableOpacity, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { logoutThunk } from '../../redux/actionCreators/auth';
 
 const LogoutButton = () => {
@@ -23,7 +24,7 @@ const LogoutButton = () => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <MaterialCommunityIcons name='logout' size={24} color='#0463bf' />
+      <MaterialCommunityIcons name='logout' size={24} color='#ffff' />
     </TouchableOpacity>
   );
 };

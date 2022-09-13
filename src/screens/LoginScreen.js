@@ -21,7 +21,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' && 'padding'}>
-        <LogoTitle />
+        <LogoTitle authLogo />
         <LoginForm />
         <View style={styles.authTextContainer}>
           <Text style={styles.authText}>don't have an account? </Text>
