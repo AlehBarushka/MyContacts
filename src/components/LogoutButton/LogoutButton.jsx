@@ -23,7 +23,7 @@ const LogoutButton = () => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <MaterialCommunityIcons name='logout' size={24} color='black' />
+      <MaterialCommunityIcons name='logout' size={24} color='#0463bf' />
     </TouchableOpacity>
   );
 };
