@@ -18,24 +18,31 @@ const HomeScreen = () => {
   }, [postNumber]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <View>
-          <Text>{post.title}</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView
+      contentContainerStyle={styles.scrollView}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+      <View>
+        <Text>{post.title}</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+        <Text>asdfasdfasdf</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   scrollView: {
     flex: 1,
     alignItems: 'center',
