@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { HOME, LOGIN, SIGNUP } from './constants/routes';
+import { CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
 
 import { onAuthStateChangedThunk } from './redux/actionCreators/auth';
 
@@ -14,6 +14,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import Loader from './components/Loader';
 import LogoutButton from './components/LogoutButton/LogoutButton';
 import LogoTitle from './components/LogoTitle';
+import ContactScreen from './screens/ContactScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(onAuthStateChangedThunk());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <Loader />;
@@ -35,16 +36,27 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {isAuth ? (
-          <Stack.Screen
-            name={HOME}
-            options={{
-              headerStyle: { backgroundColor: '#0782F9' },
-              headerTitle: '',
-              headerLeft: () => <LogoTitle />,
-              headerRight: () => <LogoutButton />,
-            }}
-            component={HomeScreen}
-          />
+          <>
+            <Stack.Screen
+              name={HOME}
+              options={{
+                headerStyle: { backgroundColor: '#0782F9' },
+                headerTitle: '',
+                headerLeft: () => <LogoTitle />,
+                headerRight: () => <LogoutButton />,
+              }}
+              component={HomeScreen}
+            />
+            <Stack.Screen
+              name={CONTACT}
+              options={{
+                title: CONTACT,
+                headerStyle: { backgroundColor: '#0782F9' },
+                headerTintColor: '#ffff',
+              }}
+              component={ContactScreen}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name={LOGIN} options={{ headerShown: false }} component={LoginScreen} />

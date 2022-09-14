@@ -19,27 +19,22 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' && 'padding'}>
-        <LogoTitle authLogo />
-        <SignUpForm />
-        <View style={styles.authTextContainer}>
-          <Text style={styles.authText}>already have account? </Text>
-          <TouchableOpacity onPress={handleNavigate}>
-            <Text style={styles.authLink}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' && 'padding'}>
+      <LogoTitle authLogo />
+      <SignUpForm />
+      <View style={styles.authTextContainer}>
+        <Text style={styles.authText}>already have account? </Text>
+        <TouchableOpacity onPress={handleNavigate}>
+          <Text style={styles.authLink}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
-  safeAreaContainer: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
