@@ -4,8 +4,9 @@ import { RefreshControl, TouchableOpacity, ScrollView, StyleSheet, View } from '
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ContactCard from '../components/ContactCard';
-import { CONTACT } from '../constants/routes';
+import { CONTACT, CREATE_CONTACT } from '../constants/routes';
 import { getFullName } from '../utils/names';
+import LogoutButton from '../components/LogoutButton/LogoutButton';
 
 const contacts = [
   { id: 1, firsName: 'Alex', lastName: 'Ivanov', phoneNumber: '+52365456' },
@@ -28,8 +29,8 @@ const contacts = [
 const HomeScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleNavigate = params => {
-    navigation.navigate(CONTACT, params);
+  const handleNavigate = (route, params) => {
+    navigation.navigate(route, params);
   };
 
   const onRefresh = () => {
@@ -48,9 +49,9 @@ const HomeScreen = ({ navigation }) => {
         {contacts.map(contact => (
           <ContactCard
             onPress={() =>
-              handleNavigate({
-                id: contact.id,
+              handleNavigate(CONTACT, {
                 title: getFullName(contact.firsName, contact.lastName),
+                id: contact.id,
                 firstName: contact.firsName,
                 lastName: contact.lastName,
                 phoneNumber: contact.phoneNumber,
@@ -63,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
           />
         ))}
       </ScrollView>
-      <TouchableOpacity onPress={() => console.log('hello')} style={styles.button}>
+      <TouchableOpacity onPress={() => handleNavigate(CREATE_CONTACT)} style={styles.button}>
         <MaterialCommunityIcons name='account-plus' size={24} color='#ffff' />
       </TouchableOpacity>
     </View>
