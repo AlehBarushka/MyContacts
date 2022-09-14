@@ -1,13 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { getFirstLetter } from '../../utils/firstLetter';
+import { getFirstLetter } from '../../utils/names';
 
-const ContactCard = ({ firstName, lastName, phoneNumber }) => {
+const ContactCard = ({ firstName, lastName, phoneNumber, onPress }) => {
   return (
-    <TouchableOpacity
-      style={styles.container}
-      activeOpacity={0.2}
-      onPress={() => console.log('card')}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.2} onPress={onPress}>
       <View style={styles.card}>
         <View style={styles.cardCircle}>
           <Text style={styles.cardCircleText}>{getFirstLetter(firstName)}</Text>
