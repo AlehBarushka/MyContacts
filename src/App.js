@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
+import { CONTACT, CREATE_CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
 
 import { onAuthStateChangedThunk } from './redux/actionCreators/auth';
 
@@ -14,7 +14,8 @@ import SignUpScreen from './screens/SignUpScreen';
 import Loader from './components/Loader';
 import LogoutButton from './components/LogoutButton/LogoutButton';
 import LogoTitle from './components/LogoTitle';
-import ContactScreen from './screens/ContactScreen';
+import ContactInfoScreen from './screens/ContactInfoScreen';
+import CreateContactScreen from './screens/CreateContactScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,7 +55,15 @@ const App = () => {
                 headerStyle: { backgroundColor: '#0782F9' },
                 headerTintColor: '#ffff',
               }}
-              component={ContactScreen}
+              component={ContactInfoScreen}
+            />
+            <Stack.Screen
+              name={CREATE_CONTACT}
+              options={{
+                headerStyle: { backgroundColor: '#0782F9' },
+                headerTintColor: '#ffff',
+              }}
+              component={CreateContactScreen}
             />
           </>
         ) : (

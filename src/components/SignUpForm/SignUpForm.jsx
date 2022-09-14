@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   error: {
     marginTop: 5,
-    marginLeft: 15,
+    marginHorizontal: 10,
     color: '#d1565c',
   },
 });
