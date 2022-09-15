@@ -1,10 +1,19 @@
-import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { FIRST_NAME_ERROR, PHONE_NUMBER_ERROR } from '../../constants/errors';
 import { isValidFirstName, isValidPhoneNumber } from '../../utils/formValidation';
 
-const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, editMode }) => {
+import { updateContactThunk } from '../../redux/actionCreators/contacts';
+
+const EditContactForm = ({
+  contactInfo: { id, firstName, lastName, phoneNumber },
+  editMode,
+  goBack,
+}) => {
+  const dispatch = useDispatch();
   const [contactData, setContactData] = useState({
     firstName,
     lastName,
@@ -24,7 +33,11 @@ const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, ed
   };
 
   const onSubmit = () => {
-    console.log('Saved');
+    if (isValidFirstName(contactData.firstName) && isValidPhoneNumber(contactData.phoneNumber)) {
+      dispatch(updateContactThunk(id, contactData));
+
+      return goBack();
+    }
 
     if (!isValidFirstName(contactData.firstName)) {
       setValidationErrors(validationErrors => ({

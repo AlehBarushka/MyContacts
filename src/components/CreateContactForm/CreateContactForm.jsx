@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { FIRST_NAME_ERROR, PHONE_NUMBER_ERROR } from '../../constants/errors';
-import { createContactThunk } from '../../redux/actionCreators/contacts';
-
 import { isValidFirstName, isValidPhoneNumber } from '../../utils/formValidation';
+
+import { createContactThunk } from '../../redux/actionCreators/contacts';
 
 const CreateContactForm = ({ goBack }) => {
   const dispatch = useDispatch();

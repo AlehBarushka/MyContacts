@@ -59,4 +59,16 @@ export const firebaseDB = {
 
     return contacts;
   },
+
+  /**
+   * @description The method update contact from contacts collection.
+   * @param {String} id - Id of updated contact.
+   * @param {ContactData} contactData - An object with contact data.
+   */
+
+  async updateContact(id, contactData) {
+    const washingtonRef = doc(db, 'contacts', id);
+
+    await updateDoc(washingtonRef, contactData);
+  },
 };

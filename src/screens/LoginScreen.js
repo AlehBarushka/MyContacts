@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { SIGNUP } from '../constants/routes';
+import { SIGNUP } from '../constants/screenNames';
 
 import LoginForm from '../components/LoginForm';
 import LogoTitle from '../components/LogoTitle';

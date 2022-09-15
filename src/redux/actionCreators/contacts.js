@@ -5,6 +5,9 @@ import {
   GET_CONTACTS_FAILURE,
   GET_CONTACTS_PENDING,
   GET_CONTACTS_SUCCESS,
+  UPDATE_CONTACT_FAILURE,
+  UPDATE_CONTACT_PENDING,
+  UPDATE_CONTACT_SUCCESS,
 } from '../actionConstants/contacts';
 
 import { firebaseDB } from '../../services/firebase/db';
@@ -38,6 +41,20 @@ const getContactsFailure = error => ({
   payload: error,
 });
 
+const updateContactPending = () => ({
+  type: UPDATE_CONTACT_PENDING,
+});
+
+const updateContactSuccess = () => ({
+  type: UPDATE_CONTACT_SUCCESS,
+});
+
+const updateContactFailure = error => ({
+  type: UPDATE_CONTACT_FAILURE,
+  payload: error,
+});
+
+//-----------------THUNKS-------------------//
 export const createContactThunk = contactData => {
   return async dispatch => {
     try {
@@ -65,6 +82,23 @@ export const getContactsThunk = () => {
       dispatch(getContactsSuccess(contacts));
     } catch (error) {
       dispatch(getContactsFailure(error.message));
+    }
+  };
+};
+
+export const updateContactThunk = (id, contactData) => {
+  return async dispatch => {
+    try {
+      dispatch(updateContactPending());
+      dispatch(loading());
+
+      await firebaseDB.updateContact(id, contactData);
+
+      dispatch(updateContactSuccess());
+      dispatch(loadingSuccess());
+    } catch (error) {
+      dispatch(updateContactFailure(error.message));
+      dispatch(loadingSuccess());
     }
   };
 };

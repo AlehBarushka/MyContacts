@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { RefreshControl, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { CONTACT_INFO, CREATE_CONTACT } from '../constants/screenNames';
+import { getFullName } from '../utils/names';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { getContactsThunk } from '../redux/actionCreators/contacts';
-
-import { CONTACT_INFO, CREATE_CONTACT } from '../constants/routes';
-import { getFullName } from '../utils/names';
 
 import ContactCard from '../components/ContactCard';
 

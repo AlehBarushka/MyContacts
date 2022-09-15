@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CONTACT_INFO, CREATE_CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
+import { CONTACT_INFO, CREATE_CONTACT, HOME, LOGIN, SIGNUP } from './constants/screenNames';
 
 import { onAuthStateChangedThunk } from './redux/actionCreators/auth';
 
