@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "My Contacts",
-    "slug": "My Contacts",
+    "name": "My.Contacts",
+    "slug": "My-Contacts1",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "My.Contacts"
     },
     "web": {
       "favicon": "./assets/favicon.png"
