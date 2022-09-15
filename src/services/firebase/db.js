@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   getFirestore,
@@ -70,5 +71,13 @@ export const firebaseDB = {
     const washingtonRef = doc(db, 'contacts', id);
 
     await updateDoc(washingtonRef, contactData);
+  },
+
+  /**
+   * @description The method delete contact from contacts collection.
+   * @param {String} id - Id of deleted contact.
+   */
+  async deleteContact(id) {
+    await deleteDoc(doc(db, 'contacts', id));
   },
 };

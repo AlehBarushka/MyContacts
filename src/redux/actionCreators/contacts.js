@@ -2,6 +2,9 @@ import {
   CREATE_CONTACT_FAILURE,
   CREATE_CONTACT_PENDING,
   CREATE_CONTACT_SUCCESS,
+  DELETE_CONTACT_FAILURE,
+  DELETE_CONTACT_PENDING,
+  DELETE_CONTACT_SUCCESS,
   GET_CONTACTS_FAILURE,
   GET_CONTACTS_PENDING,
   GET_CONTACTS_SUCCESS,
@@ -54,6 +57,19 @@ const updateContactFailure = error => ({
   payload: error,
 });
 
+const deleteContactPending = () => ({
+  type: DELETE_CONTACT_PENDING,
+});
+
+const deleteContactSuccess = () => ({
+  type: DELETE_CONTACT_SUCCESS,
+});
+
+const deleteContactFailure = error => ({
+  type: DELETE_CONTACT_FAILURE,
+  payload: error,
+});
+
 //-----------------THUNKS-------------------//
 export const createContactThunk = contactData => {
   return async dispatch => {
@@ -98,6 +114,23 @@ export const updateContactThunk = (id, contactData) => {
       dispatch(loadingSuccess());
     } catch (error) {
       dispatch(updateContactFailure(error.message));
+      dispatch(loadingSuccess());
+    }
+  };
+};
+
+export const deleteContactThunk = id => {
+  return async dispatch => {
+    try {
+      dispatch(deleteContactPending());
+      dispatch(loading());
+
+      await firebaseDB.deleteContact(id);
+
+      dispatch(deleteContactSuccess());
+      dispatch(loadingSuccess());
+    } catch (error) {
+      dispatch(deleteContactFailure(error.message));
       dispatch(loadingSuccess());
     }
   };

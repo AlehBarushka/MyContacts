@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { FIRST_NAME_ERROR, PHONE_NUMBER_ERROR } from '../../constants/errors';
 import { isValidFirstName, isValidPhoneNumber } from '../../utils/formValidation';
 
-import { updateContactThunk } from '../../redux/actionCreators/contacts';
+import { deleteContactThunk, updateContactThunk } from '../../redux/actionCreators/contacts';
 
 const EditContactForm = ({
   contactInfo: { id, firstName, lastName, phoneNumber },
@@ -32,7 +32,7 @@ const EditContactForm = ({
     });
   };
 
-  const onSubmit = () => {
+  const handleUpdate = () => {
     if (isValidFirstName(contactData.firstName) && isValidPhoneNumber(contactData.phoneNumber)) {
       dispatch(updateContactThunk(id, contactData));
 
@@ -52,6 +52,12 @@ const EditContactForm = ({
         phoneNumber: PHONE_NUMBER_ERROR,
       }));
     }
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteContactThunk(id));
+
+    goBack();
   };
 
   return (
@@ -92,10 +98,16 @@ const EditContactForm = ({
           <Text style={styles.error}>{validationErrors.phoneNumber}</Text>
         )}
       </View>
-      {editMode && (
+      {editMode ? (
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={onSubmit} style={styles.button}>
+          <TouchableOpacity onPress={handleUpdate} style={styles.saveButton}>
             <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
+            <Text style={styles.buttonText}>Delete contact</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -136,8 +148,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 30,
   },
-  button: {
+  saveButton: {
     backgroundColor: '#0782F9',
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+  },
+  deleteButton: {
+    backgroundColor: '#d1565c',
     width: '100%',
     padding: 15,
     borderRadius: 10,
