@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, KeyboardAvoidingView, View, Text } from 'react-native';
 
-import { getFirstLetter } from '../utils/names';
-
 import { Entypo } from '@expo/vector-icons';
+
+import { getFirstLetter } from '../utils/names';
 
 import EditContactForm from '../components/EditContactForm';
 
@@ -11,7 +11,7 @@ const ContactInfoScreen = ({ route: { params }, navigation }) => {
   const { id, title, firstName, lastName, phoneNumber } = params;
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const contactInfo = { firstName, lastName, phoneNumber };
+  const contactInfo = { id, firstName, lastName, phoneNumber };
 
   useEffect(() => {
     navigation.setOptions({ title: title });
@@ -22,7 +22,7 @@ const ContactInfoScreen = ({ route: { params }, navigation }) => {
       <View style={styles.circle}>
         <Text style={styles.circleText}>{getFirstLetter(firstName)}</Text>
       </View>
-      <EditContactForm contactInfo={contactInfo} editMode={isEditMode} />
+      <EditContactForm contactInfo={contactInfo} goBack={navigation.goBack} editMode={isEditMode} />
       {!isEditMode && (
         <TouchableOpacity onPress={() => setIsEditMode(true)} style={styles.button}>
           <Entypo name='edit' size={24} color='#ffff' />

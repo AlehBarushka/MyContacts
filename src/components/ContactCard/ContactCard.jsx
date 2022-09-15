@@ -15,7 +15,7 @@ const ContactCard = ({ firstName, lastName, phoneNumber, onPress }) => {
             <Text style={styles.cardInfoName}>{lastName}</Text>
           </View>
           <View>
-            <Text style={styles.cardInfoPhone}>{phoneNumber}</Text>
+            <Text>{phoneNumber}</Text>
           </View>
         </View>
       </View>
@@ -48,5 +48,4 @@ const styles = StyleSheet.create({
   cardInfo: { marginLeft: 10 },
   cardInfoName: { fontSize: 18, fontWeight: '500' },
   row: { flexDirection: 'row' },
-  cardInfoPhone: {},
 });

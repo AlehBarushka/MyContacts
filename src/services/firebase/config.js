@@ -13,7 +13,7 @@ const firebaseConfig = {
   appId: envConfig.FIREBASE_APP_ID,
 };
 
-const myApp = initializeApp(firebaseConfig);
+export const myApp = initializeApp(firebaseConfig);
 
 export const auth = initializeAuth(myApp, {
   persistence: getReactNativePersistence(AsyncStorage),

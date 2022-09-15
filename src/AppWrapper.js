@@ -1,5 +1,5 @@
+import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import App from './App';
 
@@ -8,7 +8,7 @@ import store from './redux/store';
 const AppWrapper = () => {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <App />
       </SafeAreaProvider>
     </Provider>

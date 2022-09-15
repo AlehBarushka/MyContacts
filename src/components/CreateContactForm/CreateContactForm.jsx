@@ -1,10 +1,16 @@
-import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { FIRST_NAME_ERROR, PHONE_NUMBER_ERROR } from '../../constants/errors';
 import { isValidFirstName, isValidPhoneNumber } from '../../utils/formValidation';
 
-const CreateContactForm = () => {
+import { createContactThunk } from '../../redux/actionCreators/contacts';
+
+const CreateContactForm = ({ goBack }) => {
+  const dispatch = useDispatch();
+
   const [contactData, setContactData] = useState({
     firstName: '',
     lastName: '',
@@ -24,7 +30,11 @@ const CreateContactForm = () => {
   };
 
   const onSubmit = () => {
-    console.log('Submitted');
+    if (isValidFirstName(contactData.firstName) && isValidPhoneNumber(contactData.phoneNumber)) {
+      dispatch(createContactThunk(contactData));
+
+      return goBack();
+    }
 
     if (!isValidFirstName(contactData.firstName)) {
       setValidationErrors(validationErrors => ({

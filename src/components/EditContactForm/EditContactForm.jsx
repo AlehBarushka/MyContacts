@@ -1,10 +1,19 @@
-import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { FIRST_NAME_ERROR, PHONE_NUMBER_ERROR } from '../../constants/errors';
 import { isValidFirstName, isValidPhoneNumber } from '../../utils/formValidation';
 
-const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, editMode }) => {
+import { deleteContactThunk, updateContactThunk } from '../../redux/actionCreators/contacts';
+
+const EditContactForm = ({
+  contactInfo: { id, firstName, lastName, phoneNumber },
+  editMode,
+  goBack,
+}) => {
+  const dispatch = useDispatch();
   const [contactData, setContactData] = useState({
     firstName,
     lastName,
@@ -23,8 +32,12 @@ const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, ed
     });
   };
 
-  const onSubmit = () => {
-    console.log('Saved');
+  const handleUpdate = () => {
+    if (isValidFirstName(contactData.firstName) && isValidPhoneNumber(contactData.phoneNumber)) {
+      dispatch(updateContactThunk(id, contactData));
+
+      return goBack();
+    }
 
     if (!isValidFirstName(contactData.firstName)) {
       setValidationErrors(validationErrors => ({
@@ -39,6 +52,12 @@ const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, ed
         phoneNumber: PHONE_NUMBER_ERROR,
       }));
     }
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteContactThunk(id));
+
+    goBack();
   };
 
   return (
@@ -79,10 +98,16 @@ const EditContactForm = ({ contactInfo: { firstName, lastName, phoneNumber }, ed
           <Text style={styles.error}>{validationErrors.phoneNumber}</Text>
         )}
       </View>
-      {editMode && (
+      {editMode ? (
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={onSubmit} style={styles.button}>
+          <TouchableOpacity onPress={handleUpdate} style={styles.saveButton}>
             <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
+            <Text style={styles.buttonText}>Delete contact</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -123,8 +148,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 30,
   },
-  button: {
+  saveButton: {
     backgroundColor: '#0782F9',
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+  },
+  deleteButton: {
+    backgroundColor: '#d1565c',
     width: '100%',
     padding: 15,
     borderRadius: 10,

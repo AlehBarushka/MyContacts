@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { EMAIL_ERROR, PASSWORD_ERROR, USERNAME_ERROR } from '../../constants/errors';

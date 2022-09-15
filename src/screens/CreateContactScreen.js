@@ -2,10 +2,10 @@ import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 
 import CreateContactForm from '../components/CreateContactForm/CreateContactForm';
 
-const CreateContactScreen = () => {
+const CreateContactScreen = ({ navigation: { goBack } }) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' && 'padding'}>
-      <CreateContactForm />
+      <CreateContactForm goBack={goBack} />
     </KeyboardAvoidingView>
   );
 };
