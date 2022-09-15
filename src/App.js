@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CONTACT, CREATE_CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
+import { CONTACT_INFO, CREATE_CONTACT, HOME, LOGIN, SIGNUP } from './constants/routes';
 
 import { onAuthStateChangedThunk } from './redux/actionCreators/auth';
 
@@ -49,9 +49,9 @@ const App = () => {
               component={HomeScreen}
             />
             <Stack.Screen
-              name={CONTACT}
+              name={CONTACT_INFO}
               options={{
-                title: CONTACT,
+                title: CONTACT_INFO,
                 headerStyle: { backgroundColor: '#0782F9' },
                 headerTintColor: '#ffff',
               }}

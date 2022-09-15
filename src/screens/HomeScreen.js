@@ -1,68 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RefreshControl, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import ContactCard from '../components/ContactCard';
-import { CONTACT, CREATE_CONTACT } from '../constants/routes';
-import { getFullName } from '../utils/names';
-import LogoutButton from '../components/LogoutButton/LogoutButton';
+import { getContactsThunk } from '../redux/actionCreators/contacts';
 
-const contacts = [
-  { id: 1, firsName: 'Alex', lastName: 'Ivanov', phoneNumber: '+52365456' },
-  { id: 2, firsName: 'Max', lastName: 'Zaitsev', phoneNumber: '54564564' },
-  { id: 3, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 4, firsName: 'Anton', lastName: 'Kutuzov', phoneNumber: '234524352' },
-  { id: 5, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 6, firsName: 'Misha', lastName: 'Lapenko', phoneNumber: '234524352' },
-  { id: 7, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 8, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 9, firsName: 'Ignat', lastName: 'Moroz', phoneNumber: '234524352' },
-  { id: 10, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 11, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 12, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 13, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 14, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-  { id: 15, firsName: 'Aleh', lastName: 'Barushka', phoneNumber: '234524352' },
-];
+import { CONTACT_INFO, CREATE_CONTACT } from '../constants/routes';
+import { getFullName } from '../utils/names';
+
+import ContactCard from '../components/ContactCard';
 
 const HomeScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.data);
 
   const handleNavigate = (route, params) => {
     navigation.navigate(route, params);
   };
 
-  const onRefresh = () => {
+  useEffect(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      contacts.reverse();
+    dispatch(getContactsThunk()).then(() => {
       setRefreshing(false);
-    }, 2000);
-  };
+    });
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollView}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        {contacts.map(contact => (
-          <ContactCard
-            onPress={() =>
-              handleNavigate(CONTACT, {
-                title: getFullName(contact.firsName, contact.lastName),
-                id: contact.id,
-                firstName: contact.firsName,
-                lastName: contact.lastName,
-                phoneNumber: contact.phoneNumber,
-              })
-            }
-            key={contact.id}
-            firstName={contact.firsName}
-            lastName={contact.lastName}
-            phoneNumber={contact.phoneNumber}
-          />
-        ))}
+        refreshControl={<RefreshControl refreshing={refreshing} />}>
+        {contacts.map(contact => {
+          return (
+            <ContactCard
+              key={contact.id}
+              firstName={contact.firstName}
+              lastName={contact.lastName}
+              phoneNumber={contact.phoneNumber}
+              onPress={() =>
+                handleNavigate(CONTACT_INFO, {
+                  title: getFullName(contact.firstName, contact.lastName),
+                  id: contact.id,
+                  firstName: contact.firstName,
+                  lastName: contact.lastName,
+                  phoneNumber: contact.phoneNumber,
+                })
+              }
+            />
+          );
+        })}
       </ScrollView>
       <TouchableOpacity onPress={() => handleNavigate(CREATE_CONTACT)} style={styles.button}>
         <MaterialCommunityIcons name='account-plus' size={24} color='#ffff' />

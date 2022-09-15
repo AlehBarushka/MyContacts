@@ -3,7 +3,6 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { auth } from './config';
