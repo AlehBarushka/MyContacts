@@ -1,3 +1,4 @@
+import { LOGOUT_SUCCESS } from '../actionConstants/auth';
 import {
   CREATE_CONTACT_FAILURE,
   DELETE_CONTACT_FAILURE,
@@ -22,6 +23,9 @@ const contactsReducer = (state = initialState, { type, payload }) => {
     case UPDATE_CONTACT_FAILURE:
     case GET_CONTACTS_FAILURE:
       return { ...state, error: payload };
+
+    case LOGOUT_SUCCESS:
+      return initialState;
 
     default:
       return state;
